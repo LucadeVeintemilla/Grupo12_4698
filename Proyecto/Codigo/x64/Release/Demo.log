@@ -1,0 +1,26 @@
+﻿  main.cpp
+E:\Escritorio\Proyecto\Estructura\Aspose.Cells_for_C++_22.6\Demo\Validacion.h(46,16): warning C4101: 'e': variable local sin referencia
+E:\Escritorio\Proyecto\Estructura\Aspose.Cells_for_C++_22.6\Demo\Validacion.h(93,17): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+E:\Escritorio\Proyecto\Estructura\Aspose.Cells_for_C++_22.6\Demo\Menu.h(24,21): warning C4305: 'inicializando': truncamiento de 'int' a 'char'
+E:\Escritorio\Proyecto\Estructura\Aspose.Cells_for_C++_22.6\Demo\Menu.h(24,17): warning C4309: 'inicializando': truncamiento de valor constante
+E:\Escritorio\Proyecto\Estructura\Aspose.Cells_for_C++_22.6\Demo\Menu.h(105,11): warning C4101: 'tam': variable local sin referencia
+E:\Escritorio\Proyecto\Estructura\Aspose.Cells_for_C++_22.6\Demo\Login.h(199,46): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+E:\Escritorio\Proyecto\Estructura\Aspose.Cells_for_C++_22.6\Demo\Login.h(218,5): warning C4551: la llamada a la función no tiene lista de argumentos
+E:\Escritorio\Proyecto\Estructura\Aspose.Cells_for_C++_22.6\Demo\Lista.h(246,17): warning C4101: 'e': variable local sin referencia
+E:\Escritorio\Proyecto\Estructura\Aspose.Cells_for_C++_22.6\Demo\Lista.h(204): message : al compilar la función del miembro clase plantilla "DATO Lista<DATO>::copiar(int)"
+          with
+          [
+              DATO=Persona
+          ]
+E:\Escritorio\Proyecto\Estructura\Aspose.Cells_for_C++_22.6\Demo\Menu.h(168): message : Vea la referencia a la creación de una instancia de la función plantilla "DATO Lista<DATO>::copiar(int)" que se está compilando
+          with
+          [
+              DATO=Persona
+          ]
+E:\Escritorio\Proyecto\Estructura\Aspose.Cells_for_C++_22.6\Demo\Menu.h(106): message : Vea la referencia a la creación de una instancia de clase plantilla "Lista<Persona>" que se está compilando
+  Generando código
+  3 of 410 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Generación de código finalizada
+  Demo.vcxproj -> E:\Escritorio\Proyecto\Estructura\Aspose.Cells_for_C++_22.6\Demo\x64\Release\Demo.exe
