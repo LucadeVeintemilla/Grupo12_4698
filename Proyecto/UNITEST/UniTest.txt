@@ -1,0 +1,1218 @@
+UNITEST
+
+Build started, please wait...
+Build completed.
+
+Test run for c:\Users\Usuario\Desktop\UnitTest\UnitTest.dll(.NETCoreApp)
+Microsoft (R) Test Execution Command Line Tool Version 15.9.0
+Copyright (c) Microsoft Corporation. All rights Reserved
+[Project]
+filename=SDLGrafico.dev
+name=SDLGrafico
+Type=1
+Ver=2
+ObjFiles=
+Includes=
+Libs=
+PrivateResource=
+ResourceIncludes=
+MakeIncludes=
+Compiler=
+CppCompiler=
+Linker=-lmingw32 -lSDL2main -lSDL2 -lSDL2_image_@@_
+IsCpp=1
+Icon=
+ExeOutput=
+ObjectOutput=
+LogOutput=
+LogOutputEnabled=0
+OverrideOutput=0
+OverrideOutputName=SDLGrafico.exe
+HostApplication=
+UseCustomMakefile=0
+CustomMakefile=
+CommandLine=
+Folders=
+IncludeVersionInfo=0
+SupportXPThemes=0
+CompilerSet=0
+CompilerSettings=0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;4;0;0;0
+UnitCount=8
+
+[VersionInfo]
+Major=1
+Minor=0
+Release=0
+Build=0
+LanguageID=1033
+CharsetID=1252
+CompanyName=
+FileVersion=1.0.0.0
+FileDescription=Developed using the Dev-C++ IDE
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
+AutoIncBuildNr=0
+SyncProduct=1
+
+[Unit2]
+FileName=Ingreso.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit1]
+FileName=main2.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit3]
+FileName=Lista.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit4]
+FileName=Login.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit5]
+FileName=menu.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit6]
+FileName=Persona.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit7]
+FileName=Tools.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit8]
+FileName=Validacion.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+
+Total tests: 1 Passed: 1. Failed 0. Skipped: 0.
+Test execution time: 1.8755 Seconds.
+
+
+
+
+CODIGO IMPLEMENTADO
+
+class Ingreso {
+
+public:
+	string leer(string,int);
+};
+string Ingreso::leer(string mensage,int tipo) {
+	Validacion validacion;
+	string entrada;
+	cout << mensage << endl;
+	cin >> entrada;
+	while (validacion.validar(entrada, tipo)) {
+		cout << "Valor no valido reingrese, ingrese solo numeros" << endl;
+		cin >> entrada;
+	}
+	return entrada;
+}
+
+template<class DATO>
+class Lista{
+	private:
+	    template<class DATON>
+	    class Nodo {
+        public:
+            Nodo(const DATON dat, Nodo<DATON> *sig, Nodo<DATON> *ant) : dato(dat), sig(sig), ant(ant) {}
+            //int info;
+            DATON dato;
+            Nodo<DATON> *sig;
+            //Nodo *sig;
+            Nodo<DATON> *ant;
+            //Nodo *ant;
+        };
+
+		//Nodo *raiz;
+		Nodo<DATO> *raiz;
+
+	public:
+		Lista() : raiz(NULL){}
+        ~Lista();
+        void insertarPrimero(const DATO dat);
+        void insertarUltimo(const DATO x);
+        bool vacia();
+        void imprimir();
+        int cantidad();
+        void borrar(int pos);
+        DATO copiar(int pos);
+        void exportartxt(string);
+        void exportardat(string);
+};
+
+
+
+template<class DATO>
+Lista<DATO>::~Lista()
+{
+    if (raiz != NULL) {
+        Nodo<DATO> *reco = raiz->sig;
+        Nodo<DATO> *bor;
+        while (reco != raiz)
+        {
+            bor = reco;
+            reco = reco->sig;
+            delete bor;
+        }
+        delete raiz;
+    }
+}
+
+template<class DATO>
+void Lista<DATO>::insertarPrimero(const DATO x)
+{
+    Nodo<DATO> *nuevo = new Nodo<DATO>(x,NULL,NULL);
+    nuevo->dato = x;
+    if (raiz == NULL)
+    {
+        nuevo->sig = nuevo;
+        nuevo->ant = nuevo;
+        raiz = nuevo;
+    }
+    else
+    {
+        Nodo<DATO> *ultimo;
+        ultimo = raiz->ant;
+        nuevo->sig = raiz;
+        nuevo->ant = ultimo;
+        raiz->ant = nuevo;
+        ultimo->sig = nuevo;
+        raiz = nuevo;
+    }
+}
+
+template<class DATO>
+void Lista<DATO>::insertarUltimo(const DATO x)
+{
+    Nodo<DATO> *nuevo = new Nodo<DATO>(x,NULL,NULL);;
+    nuevo->dato = x;
+    if (raiz == NULL)
+    {
+        nuevo->sig = nuevo;
+        nuevo->ant = nuevo;
+        raiz = nuevo;
+    }
+    else
+    {
+        Nodo<DATO> *ultimo;
+        ultimo = raiz->ant;
+        nuevo->sig = raiz;
+        nuevo->ant = ultimo;
+        raiz->ant = nuevo;
+        ultimo->sig = nuevo;
+    }
+}
+
+template<class DATO>
+bool Lista<DATO>::vacia()
+{
+    if (raiz == NULL)
+        return true;
+    else
+        return false;
+}
+
+template<class DATO>
+void Lista<DATO>::imprimir()
+{
+    if (!vacia()) {
+        Nodo<DATO> *reco = raiz;
+        do {
+            cout<<reco->dato  <<"-";
+            reco = reco->sig;
+        } while (reco != raiz);
+        cout << "\n";
+    }
+}
+
+template<class DATO>
+int Lista<DATO>::cantidad()
+{
+    int cant = 0;
+    if (!vacia())
+    {
+        Nodo<DATO> *reco = raiz;
+        do {
+            cant++;
+            reco = reco->sig;
+        } while (reco != raiz);
+    }
+    return cant;
+}
+
+template<class DATO>
+void Lista<DATO>::borrar(int pos)
+{
+    if(!vacia()){
+        if (pos <= cantidad())
+        {
+            if (pos == 1)
+            {
+                if (cantidad() == 1)
+                {
+                    delete raiz;
+                    raiz = NULL;
+                }
+                else
+                {
+                    Nodo<DATO> *bor = raiz;
+                    Nodo<DATO> *ultimo = raiz->ant;
+                    raiz = raiz->sig;
+                    ultimo->sig = raiz;
+                    raiz->ant = ultimo;
+                    delete bor;
+                }
+            }
+            else {
+                Nodo<DATO> *reco = raiz;
+                for (int f = 1; f <= pos - 1; f++)
+                    reco = reco->sig;
+                Nodo<DATO> *bor = reco;
+                Nodo<DATO> *anterior = reco->ant;
+                reco = reco->sig;
+                anterior->sig = reco;
+                reco->ant = anterior;
+                delete bor;
+            }
+        }
+
+    }else{
+        cout<<"La lista esta vacia"<<endl;
+    }
+}
+
+template<class DATO>
+DATO Lista<DATO>::copiar(int pos)
+{
+    try{
+        if(!vacia()){
+            if (pos <= cantidad())
+            {
+                if (pos == 1)
+                {
+                    if (cantidad() == 1)
+                    {
+                        DATO copia = raiz->dato;
+                        raiz = NULL;
+                        delete raiz;
+                        return copia;
+                    }
+                    else
+                    {
+                        Nodo<DATO> *bor = raiz;
+                        Nodo<DATO> *ultimo = raiz->ant;
+                        raiz = raiz->sig;
+                        ultimo->sig = raiz;
+                        raiz->ant = ultimo;
+                        DATO copia = bor->dato;
+                        delete bor;
+                        return copia;
+                    }
+                }
+                else {
+                    Nodo<DATO> *reco = raiz;
+                    for (int f = 1; f <= pos - 1; f++)
+                        reco = reco->sig;
+                    Nodo<DATO> *bor = reco;
+                    Nodo<DATO> *anterior = reco->ant;
+                    reco = reco->sig;
+                    anterior->sig = reco;
+                    reco->ant = anterior;
+                    DATO copia = bor->dato;
+                    delete bor;
+                    return copia;
+                }
+            }
+        }
+    }catch(char e){
+        cout<<"La lista esta vacia"<<endl;
+    }
+
+}
+
+
+
+template<class DATO>
+void Lista<DATO>::exportartxt(string nombreArchivo)
+{
+    string nombre = nombreArchivo + ".txt";
+    fstream archivo(nombre);
+
+    if(!archivo.is_open()){
+        archivo.open(nombre, ios::out);
+    }
+
+    if (!vacia()) {
+        Nodo<DATO> *reco = raiz;
+        do {
+            archivo<<reco->dato<<"-";
+            reco = reco->sig;
+        } while (reco != raiz);
+        archivo<<endl;
+    }
+
+    cout<<"Exportado con exito"<<endl;
+
+    archivo.close();
+}
+
+template<class DATO>
+void Lista<DATO>::exportardat(string nombreArchivo)
+{
+    string nombre = nombreArchivo + ".dat";
+    fstream archivo(nombre);
+
+    if(!archivo.is_open()){
+        archivo.open(nombre, ios::out);
+    }
+
+    if (!vacia()) {
+        Nodo<DATO> *reco = raiz;
+        do {
+            archivo<<reco->dato<<"-";
+            reco = reco->sig;
+        } while (reco != raiz);
+        archivo<<endl;
+    }
+
+    cout<<"Exportado con exito"<<endl;
+
+    archivo.close();
+}
+
+struct usuario
+{
+    string apellido;
+    string nombre_usuario;
+    string nombre;
+    string contrasena;
+}persona[30];
+
+
+int crear_usuario();
+void superadmin();
+void login ();
+void usuarionormal();
+
+
+
+void superadmin(){
+    int user=0;
+    int op;
+    system("cls");
+    cout<<"Registro de nuevo usuario"<<endl;
+    //cout<<"1.- Crear usaurio"<<endl;
+    //cout<<"5.- Salir"<<endl;
+    //cin>>op;
+    system("cls");
+    crear_usuario();
+    fflush(stdin);
+    login();
+}
+
+
+void usuarionormal()
+{
+    int cont=0;
+
+    if(cont == 0){
+        Menu menu;
+        cont = menu.mostrar_menu();
+        //cont++;
+    }else{
+        login();
+    }
+}
+
+
+void login ()
+{
+    string usuario, password;
+
+    int contador = 0;
+    bool ingresa = false;
+
+    do {
+    system("cls");
+        cout << "\t\t\tLOGIN DE USUARIO" << endl;
+        cout << "\t\t\t----------------" << endl;
+        cout << "\n\tUsuario: ";
+        getline(cin, usuario);
+
+        char caracter;
+
+        cout << "\tPassword: ";
+        caracter = getch();
+
+        password = "";
+
+        while (caracter != ENTER) {
+
+        if (caracter != BACKSPACE) {
+            password.push_back(caracter);
+            cout << "*";
+        } else {
+            if (password.length() > 0) {
+                cout << "\b \b" ;
+                password = password.substr(0, password.length() - 1);
+            }
+        }
+
+        caracter = getch();
+        }
+
+
+        if (usuario == USER  && password == PASS) {
+            ingresa = true;
+            fflush(stdin);
+            superadmin();
+        } else {
+            ingresa = false;
+        }
+
+        if ((usuario == USER2 && password == PASS2)){
+            fflush(stdin);
+            usuarionormal();
+        }else{
+            ingresa = false;
+        }
+
+
+        for(int i=0; i<=30; i++){
+            if ((persona[i].nombre_usuario == usuario && persona[i].contrasena==password))
+            {
+                fflush(stdin);
+                usuarionormal();
+            }else{
+                ingresa = false;
+            }
+        }
+    } while (ingresa == false && contador < 3);
+
+    if (ingresa == false) {
+        cout << "\n\tUsted no pudo ingresar al sistema. ADIOS" << endl;
+    }
+
+    cin.get();
+}
+
+
+
+int crear_usuario()
+{
+    int i=0;
+    int j=0;
+    char prueba[30];
+    int band=false;
+    Validacion validar;
+    string respuesta;
+
+        //cout<<"Ingrese su nombre"<<endl;
+        char nombre[100];
+        strcpy(nombre, validar.ingresoString("Ingrese el nombre \n"));
+        string str(nombre);
+        persona[i].nombre = nombre;
+        //cin>>persona[i].nombre;
+        cout<<endl;
+
+
+        //cout<<"Ingrese su apellido"<<endl;
+        char apellido[100];
+        strcpy(apellido, validar.ingresoString("Ingrese el apellido \n"));
+        string apl(apellido);
+        persona[i].apellido = apellido;
+        cout<<endl;
+        //cin>>persona[i].apellido;
+
+
+        cout<<"Ingrese su nombre de usuario"<<endl;
+        cin>>persona[i].nombre_usuario;
+        cout<<"Ingrese la contrasena"<<endl;
+        do{
+        cin>>persona[i].contrasena;
+        strcpy(prueba,persona[i].contrasena.c_str());
+           if( prueba[i] == '1' || prueba[i] == '0' || prueba[i] == '2' || prueba[i] == '3' || prueba[i] == '4' || prueba[i] == '5' || prueba[i] == '6' || prueba[i] == '7' || prueba[i] == '8' || prueba[i] == '9' )
+           {
+               band=true;
+               break;
+           }else{
+                cout<<"Ingreso no valido"<<endl;
+                //cin>>persona[i].contrasena;
+                }
+        }while(band==true);
+        i++;
+        cout<<"Desea ingresar otro usuario"<<endl;
+        cout<<"Presione n para terminar"<<endl;
+        system("cls");
+}
+
+class Menu{
+	public:
+		Menu();
+		int mostrar_menu();
+		int opciones_menu();
+    private:
+        string dim;
+        Ingreso ingreso;
+        Validacion validar;
+};
+Menu::Menu(){
+}
+int Menu::opciones_menu(){
+	int opc;
+    bool gameover = false;
+    char puntero = '->';
+    int coord_y;
+
+
+	cout<<"\t--Opciones de compra--"<<endl;
+	//Gotoxy(coord_x,coord_y);
+	printf("\t");
+	cout<<"1. Hacer pedido de compra"<<endl;//Insertar inicio
+	printf("\t");
+	cout<<"2. Comprar desde la lista de ventas"<<endl;//(eliminar desde la lista de ventas)
+	printf("\t");
+	cout<<"3. Eliminar una compra"<<endl;
+	printf("\t");
+	cout<<"4. Imprimir la lista"<<endl;
+	printf("\t");
+	cout<<"5. Exportar datos de compra .txt"<<endl;
+	cout<<"------------------------------------------------"<<endl;
+	cout<<"\t--Opciones de venta--"<<endl;
+	printf("\t");
+	cout<<"6. Insertar un nodo en la lista de venta"<<endl;
+	printf("\t");
+	cout<<"7. Vender una unidad existente"<<endl;
+	printf("\t");
+	cout<<"8. Eliminar de la lista de venta"<<endl;
+	printf("\t");
+    cout<<"9. Imprimir la lista la lista de venta"<<endl;
+	printf("\t");
+	cout<<"10. Exportar datos de venta .txt"<<endl;
+	printf("\t");
+	cout<<"11. Salir"<<endl;
+	//dim = ingreso.leer("Seleccione una opcion: ", 1);
+	//istringstream(dim)>>opc;
+
+    while(!gameover)
+    {
+
+        Gotoxy(7,coord_y );
+
+        cout<<" ";
+
+        if(coord_y<=0)
+        {
+            coord_y++;
+        }
+        if(coord_y>=16)
+        {
+            coord_y--;
+        }
+
+        if(kbhit())
+        {
+            switch(getch())
+            {
+            case 72: //arriba
+                coord_y--;
+                break;
+
+            case 80: //abajo
+                coord_y++;
+                break;
+
+            case 13: //enter
+                opc = coord_y;
+                cout<<opc<<endl;
+                gameover = true;
+                break;
+            }
+        }
+
+
+        Gotoxy(7,coord_y );
+        cout<<puntero;
+        cout<<"";
+    }
+
+	return opc;
+}
+int Menu::mostrar_menu(){
+    bool mouse = true;
+    int opcion = 0;
+	int opc,tam ;
+	Lista<Persona> *lista_compra = new Lista<Persona>();
+    Lista<Persona> *lista_venta = new Lista<Persona>();
+    int salida = 0;
+
+	do{
+		system("cls");
+
+        /*
+        int coord;
+        coord = place();
+        Sleep(1000);
+        */
+
+		opc = opciones_menu();
+		switch(opc)
+		{
+			case 1:{
+                system("cls");
+
+                char nombre[100];
+				char celular[100];
+				char modelo[100];
+				char color[100];
+                float precio;
+
+
+				//cout<<"Ingrese el nombre"<<endl;
+                strcpy(nombre, validar.ingresoString("Ingrese el nombre \n"));
+                cout<<endl;
+				//memcpy(_nombre, *nombre, 50);
+
+				cout<<"Ingrese el celular"<<endl;
+				gets(celular);
+				cout<<"Ingrese el modelo"<<endl;
+				gets(modelo);
+				//cout<<"Ingrese el color"<<endl;
+				//gets(color);
+				strcpy(color, validar.ingresoString("Ingrese el color \n"));
+                cout<<endl;
+				cout<<"Ingrese precio"<<endl;
+				precio = validar.convertirFlotante();
+
+				Persona *temp=new Persona(nombre,celular,modelo,color,precio);
+			    //dim = ingreso.leer("\t--Insertar un nodo al final--\nIngrese un dato:", 1);
+				//istringstream(dim)>>dato;
+				cout<<"\t--Insertar un nodo al final:"<<endl;
+				lista_compra->insertarUltimo(*temp);
+				lista_compra->imprimir();
+				fflush(stdin);
+				break;
+			}
+
+			case 2:{//eliminar desde la lista de ventas
+                system("cls");
+			    int dato;
+			    lista_venta->imprimir();
+			    cout<<"\n\t--Eliminar el nodo X--"<<endl;
+                if(lista_venta->vacia() == false){
+                    dim = ingreso.leer("\nElija el dato que desea comprar: ", 1);
+                    istringstream(dim)>>dato;
+                    Persona temp = lista_venta->copiar(dato);
+                    lista_compra->insertarUltimo(temp);
+                }else{
+                    cout<<"La lista esta vacia"<<endl;
+                }
+                fflush(stdin);
+			    //lista_venta->imprimir();
+				break;
+			}
+
+			case 3:{//Eliminar el nodo X de la LISTA DE COMPRA
+			    system("cls");
+			    int dato;
+			    lista_compra->imprimir();
+			    cout<<"\n\t--Eliminar el nodo X--"<<endl;
+
+			    if(!lista_compra->vacia()){
+                    dim = ingreso.leer("\nElija el dato que desea eliminar: ", 1);
+                    istringstream(dim)>>dato;
+                    lista_compra->borrar(dato);
+                    lista_compra->imprimir();
+			    }else{
+                    cout<<"No hay articulos que eliminar"<<endl;
+			    }
+                fflush(stdin);
+
+				break;
+			}
+
+
+			case 4:{//Imprimir lista LA LISTA DE COMPRA
+			    system("cls");
+				lista_compra->imprimir();
+				fflush(stdin);
+				break;
+			}
+
+			case 5:{//Exportar lista LA LISTA DE COMPRA .txt
+			    system("cls");
+			    string nombre = "ListaCompra";
+                lista_compra->exportartxt(nombre);
+                fflush(stdin);
+				break;
+			}
+
+
+			/*---------------------------------------------------*/
+
+			case 8:{//Insertar nodo al final de la lista de venta  crear venta
+			    system("cls");
+			    char nombre[100];
+				char celular[100];
+				char modelo[100];
+				char color[100];
+				float precio;
+
+				cout<<"Ingrese el nombre"<<endl;
+				gets(nombre);
+				cout<<"Ingrese el celular"<<endl;
+				gets(celular);
+				cout<<"Ingrese el modelo"<<endl;
+				gets(modelo);
+				cout<<"Ingrese el color"<<endl;
+				gets(color);
+				cout<<"Ingrese precio"<<endl;
+				precio = validar.convertirFlotante();
+
+				Persona *temp=new Persona(nombre,celular,modelo,color,precio);
+			    //dim = ingreso.leer("\t--Insertar un nodo al final--\nIngrese un dato:", 1);
+				//istringstream(dim)>>dato;
+				cout<<"\t--Insertar un nodo al final:"<<endl;
+				lista_venta->insertarUltimo(*temp);
+				lista_venta->imprimir();
+				fflush(stdin);
+				break;
+			}
+
+			case 9:{//Eliminar el nodo X de la LISTA DE COMPRA
+                system("cls");
+			    int dato;
+			    lista_compra->imprimir();
+			    cout<<"\n\t--Eliminar el nodo X--"<<endl;
+
+                if(lista_venta->vacia() == false){
+                    dim = ingreso.leer("\nElija el dato que desea vender: ", 1);
+                    istringstream(dim)>>dato;
+                    Persona temp = lista_compra->copiar(dato);
+                    lista_venta->insertarUltimo(temp);
+                }else{
+                    cout<<"No hay articulos a la venta"<<endl;
+                }
+			    //lista_venta->imprimir();
+			    fflush(stdin);
+				break;
+			}
+
+			case 10:{//Eliminar lista LA LISTA DE VENTA
+
+                system("cls");
+			    int dato;
+			    lista_venta->imprimir();
+			    cout<<"\n\t--Eliminar el nodo X--"<<endl;
+
+				if(!lista_venta->vacia()){
+                    dim = ingreso.leer("\nElija el dato que desea eliminar: ", 1);
+                    istringstream(dim)>>dato;
+                    lista_venta->borrar(dato);
+				}else{
+                    cout<<"\n\t--La lista esta vacia-"<<endl;
+				}
+
+			    lista_venta->imprimir();
+			    fflush(stdin);
+				break;
+
+			}
+
+			case 11:{//Imprimir lista LA LISTA DE VENTA
+
+			    system("cls");
+				lista_venta->imprimir();
+				fflush(stdin);
+				break;
+
+			}
+
+			case 12:{//exportar LA LISTA DE VENTA
+
+                system("cls");
+			    string nombre = "ListaVentas";
+			    lista_compra->exportardat(nombre);
+                fflush(stdin);
+
+				break;
+
+			}
+
+			case 13:{//
+			    system("cls");
+				cout<<"--Gracias por usar mi programa--"<<endl;
+                mouse = false;
+                fflush(stdin);
+                salida++;
+				break;
+
+			}
+			default:{
+				cout<<"Opcion incorrecta"<<endl;
+				break;
+			}
+
+		}
+		system("pause");
+	}while(opc != 13);
+
+    return salida;
+
+}
+
+class Persona
+{
+	private:
+		char *nombre;
+		char *celular;
+		char *modelo;
+		char *color;
+		float precio;
+
+	public:
+
+		Persona(char _nombre[],char _celular[],char _modelo[], char _color[], float _precio);
+		//~Persona();
+		Persona &operator=(const Persona &c)
+		{
+			if(this!=&c)
+			{
+ 				nombre = new char[strlen(c.nombre)+1];
+				strcpy(nombre,c.nombre);
+
+				celular = new char[strlen(c.celular)+1];
+				strcpy(celular,c.celular);
+
+				modelo = new char[strlen(c.modelo)+1];
+				strcpy(modelo,c.modelo);
+
+				color = new char[strlen(c.color)+1];
+				strcpy(color,c.color);
+
+				precio =c.precio;
+			}
+			return *this;
+		}
+		bool operator>(const Persona &d) const{
+			return strcmp(nombre,d.nombre)>0;
+		}
+		bool operator<=(const Persona &d) const{
+			return strcmp(nombre,d.nombre)<=0;
+		}
+		bool operator!=(const Persona &d) const{
+			return strcmp(nombre,d.nombre);
+		}
+		bool operator<(const Persona &d) const{
+			return strcmp(nombre,d.nombre)<0;
+		}
+
+		//Getters
+		char *getNombre(){return nombre;}
+		char *getCelular(){return celular;}
+		char *getModelo(){return modelo;}
+		char *getColor(){return color;}
+		float getPrecio(){return precio;}
+
+
+};
+
+Persona::Persona(char _nombre[],char _celular[],char _modelo[], char _color[], float _precio){
+	nombre = new char[strlen(_nombre)+1];
+	strcpy(nombre,_nombre);
+	celular = new char[strlen(_celular)+1];
+	strcpy(celular,_celular);
+	modelo = new char[strlen(_modelo)+1];
+	strcpy(modelo,_modelo);
+	color = new char[strlen(_color)+1];
+	strcpy(color,_color);
+	precio=_precio;
+}
+//~Persona::Persona(){
+//	delete[] nombre;
+//}
+
+
+ostream& operator <<(ostream &os,Persona a)
+{
+	os<<a.getNombre()<<"\t";
+	os<<a.getCelular()<<"\t";
+	os<<a.getModelo()<<"\t";
+	os<<a.getColor()<<"\t";
+	os<<a.getPrecio()<<endl;
+	return os;
+}
+
+void Gotoxy(int x, int y){
+    HANDLE hcon;
+    hcon = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD dwPos;
+    dwPos.X = x;
+    dwPos.Y = y;
+    SetConsoleCursorPosition(hcon,dwPos);
+}
+
+int place(){
+    int coords;
+    POINT cursor;
+    GetCursorPos(&cursor);
+    coords = cursor.y;
+
+    cout<<"y"<<coords<<endl;
+    return coords;
+}
+
+
+class Validacion {
+public:
+	bool validar(string, int);
+    Validacion();
+    char *ingresoFlotante(const char*);
+    float convertirFlotante();
+    char *ingresoEntero(const char*);
+    int convertirEntero();
+    char *ingresoString(const char*);
+    char *convertirString();
+};
+
+/**
+	@param tipo, 1 para enteros, 2 para flotantes
+*/
+bool Validacion::validar(string entrada, int tipo) {
+	int contador = 0;
+	try {
+	    if(entrada == ".")
+        {
+            throw 1;
+        }
+		for (int i = 0; i < entrada.length(); i++) {
+			if (isalpha(entrada[i])) {
+				throw 1;
+			}
+			if (!isdigit(entrada[i]) && tipo == 1) {
+				throw 1;
+			}
+			if (entrada[i] == '.') {
+				contador++;
+			}
+			if ((isdigit(entrada[i]) == 0 && entrada[i] != '.' && entrada[i] != '-') || (contador>1)) {
+				throw 1;
+			}
+		}
+	}
+	catch (int e ) {
+		return true;
+	}
+	return false;
+}
+
+Validacion::Validacion(){
+
+}
+
+char *Validacion::ingresoFlotante(const char *msj){
+    char *dato = new char[0],c;
+    int i=0;
+    int contador = 0;
+    bool bandera = false; 				//*BANDERAS**
+    printf("%s", msj);
+    while((c = getch())!=13){
+        if(c==46 && contador <1){
+            contador++;
+            bandera=true;
+            printf("%c", c);
+            dato[i++]=c;
+        }else if((c>=48 && c<=57)){
+                printf("%c", c);
+            dato[i++]=c;
+        }else if(c == 127 || c == 8){
+            cout << "\b \b" ;
+            dato[i--]=c;
+
+            for(int i = 0;i<= (sizeof dato); i++){
+                if(dato[i] == 46){
+                    contador = 0;
+                }
+            }
+        }
+    }
+    dato[i]= '\0';
+    return dato;
+}
+
+
+float Validacion::convertirFlotante(){
+    char dato[10];
+    float valor = 0;
+    strcpy(dato, ingresoFlotante("\t"));
+    valor=atof(dato);
+    return valor;
+}
+
+char *Validacion::ingresoEntero (const char *msj){
+    char *dato = new char[0],c;
+    int i=0;
+    printf("%s", msj);
+    while((c = getch()) !=13){
+        if(c >= '0' && c <= '9' ){
+
+            printf("%c", c);
+            dato[i++]=c;
+
+
+        } if(c == 127 || c == 8){
+        cout << "\b \b" ;
+        dato[i--]=c;
+        }
+
+    }
+    dato[i]= '\0';
+    return dato;
+}
+
+int Validacion::convertirEntero(){
+    char dato[10];
+    int valor = 0;
+    strcpy(dato, ingresoEntero("Ingrese dato del tipo Entero: "));
+    valor=atoi(dato);
+    return valor;
+}
+
+char *Validacion::ingresoString (const char *msj){
+    char *dato = new char[0],c;
+    int i=0;
+    printf("%s", msj);
+    while((c = getch())!=13){
+        if((c>=65&& c<=90) || (c>=97&& c<=122) || c==32){
+            printf("%c", c);
+            dato[i++]=c;
+        }else if(c == '\b'){
+            cout << "\b" ;
+            dato[i--]=c;
+        }
+    }
+    dato[i]= '\0';
+
+    return dato;
+}
+
+
+
+char *Validacion::convertirString(){
+    char dato[60];
+    strcpy(dato, ingresoString("Ingrese dato del tipo String: "));
+    //printf("\nResultado:%s...",dato);
+    //cout<<"Soy el dato: "<<dato;
+    return dato;
+}
+
+
+int main()
+{
+    /*
+    Menu menu;
+	menu.mostrar_menu();
+    */
+
+    system("color f1");
+
+    login();
+    getch();
+    
+
+    return 0;
+}
+
+
+LIBERIAS USADAS PARA EL UNITEST
+
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <conio.h>
+#include <string.h>
+#include <windows.h>
+#include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#pragma once
+#include "Menu.h"
+#include "Login.h"
+#include "Ingreso.h"
+#include "Validacion.h"
+#include "Tools.h"
+#include"Lista.h"
+#include <vector>
+#include <winuser.h>
+
+#DEFINE USADOS
+
+#ifndef TOOLS_H_INCLUDED
+#define TOOLS_H_INCLUDED
+#ifndef PERSONA_H_INCLUDED
+#define PERSONA_H_INCLUDED
+#ifndef LOGIN_H_INCLUDED
+#define LOGIN_H_INCLUDED
+#define USER2 "admin"
+#define PASS2 "admin"
+#define USER  ""
+#define PASS ""
+#define ENTER 13
+#define BACKSPACE 8
